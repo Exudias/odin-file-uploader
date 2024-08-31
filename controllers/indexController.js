@@ -78,3 +78,8 @@ exports.registerPost = [
         }
     })
 ];
+
+exports.uploadPost = asyncHandler(async (req, res) => {
+    await db.createFile(req.file.originalname, req.file.filename, null, req.user.id);
+    res.redirect("/");
+});

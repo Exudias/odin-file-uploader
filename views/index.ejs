@@ -9,6 +9,11 @@
     <% if (user) { %>
     <a href="/logout"><button>Log out</button></a>
     <% } %>
-    Hello, <%= user.username %>!
+    Hello, <%= user.username %>!<br>
+    Upload your files here:<br>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="upload" />
+        <button type="submit">Upload</button>
+    </form>
 </body>
 </html>

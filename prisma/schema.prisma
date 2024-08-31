@@ -12,6 +12,7 @@ model User {
   username String   @unique
   password String
   folders  Folder[]
+  File     File?
 }
 
 model Folder {
@@ -21,7 +22,7 @@ model Folder {
   name       String
   files      File[]
   parent     Folder?  @relation("FolderToSubfolders", fields: [parentId], references: [id])
-  parentId   Int      @unique
+  parentId   Int?      @unique
   subfolders Folder[] @relation("FolderToSubfolders")
 
   createdAt DateTime @default(now())
@@ -29,10 +30,13 @@ model Folder {
 }
 
 model File {
-  id       Int    @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
+  user     User    @relation(fields: [userId], references: [id])
+  userId   Int     @unique
   name     String
-  folder   Folder @relation(fields: [folderId], references: [id])
-  folderId Int    @unique
+  dbName   String  @unique
+  folder   Folder? @relation(fields: [folderId], references: [id])
+  folderId Int?     @unique
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
